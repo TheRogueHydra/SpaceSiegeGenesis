@@ -20,8 +20,6 @@ public class GameScreen extends ApplicationAdapter {
     Player player;
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
-    Enemy testEnemy;
-
     @Override
     public void create() {
 
@@ -34,9 +32,6 @@ public class GameScreen extends ApplicationAdapter {
 
         player = new Player();
         player.create();
-
-        testEnemy = new Enemy();
-        testEnemy.create();
 
     }
 
@@ -51,7 +46,6 @@ public class GameScreen extends ApplicationAdapter {
             Bullet bullet = bullets.get(i);
             bullet.draw(batch);
         }
-        testEnemy.draw(batch);
         batch.end();
 
         // Updating the scene.
@@ -60,7 +54,6 @@ public class GameScreen extends ApplicationAdapter {
             Bullet bullet = bullets.get(i);
             bullet.update();
         }
-        testEnemy.update();
     }
 
     @Override
