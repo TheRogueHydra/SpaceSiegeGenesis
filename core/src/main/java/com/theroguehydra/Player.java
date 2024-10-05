@@ -12,15 +12,12 @@ public class Player {
     int Y_POSITION;
     int SPEED;
 
-    Texture texture;
+    Texture texture = new Texture("player-basic.png");
 
     public void create() {
-
-        texture = new Texture("player-basic.png");
-        SPEED = 3;
-        X_POSITION = 304;
-        Y_POSITION = 8;
-
+        this.SPEED = 3;
+        this.X_POSITION = 304;
+        this.Y_POSITION = 8;
     }
 
     public void update(ArrayList<Bullet> bullets) {
