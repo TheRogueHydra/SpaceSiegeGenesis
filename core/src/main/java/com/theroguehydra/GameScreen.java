@@ -42,6 +42,7 @@ public class GameScreen extends ApplicationAdapter {
 
     @Override
     public void render() {
+        
         // Drawing the scene.
         ScreenUtils.clear(Color.BLACK);
         batch.begin();
@@ -59,8 +60,10 @@ public class GameScreen extends ApplicationAdapter {
         for(int i=0; i<bullets.size(); i++) {
             Bullet bullet = bullets.get(i);
             bullet.update();
+            testEnemy.checkBulletCollisions(bullet, player);
         }
         testEnemy.update(player);
+
     }
 
     @Override
