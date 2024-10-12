@@ -71,4 +71,14 @@ public class GameScreen extends ApplicationAdapter {
         gameViewport.update(width, height);
     }
 
+    public void checkGameOver(Player player, SpriteBatch batch) {
+        if(player.HP <= 0) {
+
+        }
+    }
+
+    public void drawGameOverScreen(SpriteBatch batch) {
+        ScreenUtils.clear(Color.BLACK);
+    }
+
 }
