@@ -13,6 +13,7 @@ public class Player {
     int SPEED;
     int HP = 1;
     int SCORE = 0;
+    boolean isActive = true;
 
     Texture texture = new Texture("player-basic.png");
 
