@@ -20,8 +20,7 @@ public class GameScreen extends ApplicationAdapter {
 
     Player player;
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-
-    Enemy testEnemy;
+    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     @Override
     public void create() {
@@ -36,8 +35,10 @@ public class GameScreen extends ApplicationAdapter {
         player = new Player();
         player.create();
 
-        testEnemy = new Enemy();
-        testEnemy.create();
+        createEnemy(enemies, 456, 620);
+        createEnemy(enemies, 436, 620);
+        createEnemy(enemies, 420, 620);
+        createEnemy(enemies, 412, 620);
 
     }
 
@@ -53,7 +54,10 @@ public class GameScreen extends ApplicationAdapter {
             Bullet bullet = bullets.get(i);
             bullet.draw(batch);
         }
-        testEnemy.draw(batch);
+        for(int x=0; x<enemies.size(); x++) {
+            Enemy enemy = enemies.get(x);
+            enemy.draw(batch);
+        }
         checkGameOver(player, batch);
         batch.end();
 
@@ -62,9 +66,13 @@ public class GameScreen extends ApplicationAdapter {
         for(int i=0; i<bullets.size(); i++) {
             Bullet bullet = bullets.get(i);
             bullet.update();
-            testEnemy.checkBulletCollisions(bullet, player);
+            for(int n=0; n<enemies.size(); n++) {
+                Enemy enemy = enemies.get(n);
+                enemy.update(player);
+                enemy.checkBulletCollisions(bullet, player);
+                enemy.checkPlayerCollisions(player);
+            }
         }
-        testEnemy.update(player);
 
     }
 
@@ -84,6 +92,13 @@ public class GameScreen extends ApplicationAdapter {
     public void drawGameOverScreen(SpriteBatch batch) {
         ScreenUtils.clear(Color.BLACK);
         batch.draw(gameOverText, 0, 0);
+    }
+
+    public void createEnemy(ArrayList<Enemy> enemies, int xPos, int yPos) {
+        Enemy enemy = new Enemy();
+        enemy.X_POSITION = xPos;
+        enemy.Y_POSITION = yPos;
+        enemies.add(enemy);
     }
 
 }
