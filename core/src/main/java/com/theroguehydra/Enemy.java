@@ -38,8 +38,10 @@ public class Enemy {
 
         if(player.X_POSITION <= X_POSITION + 16 && player.X_POSITION + 16 >= X_POSITION) {
             if(player.Y_POSITION <= Y_POSITION + 16 && player.Y_POSITION + 16 >= Y_POSITION) {
-                this.isActive = false;
-                player.HP -= 1;
+                if(player.isActive) {
+                    this.isActive = false;
+                    player.HP -= 1;
+                }
             }
         }
 

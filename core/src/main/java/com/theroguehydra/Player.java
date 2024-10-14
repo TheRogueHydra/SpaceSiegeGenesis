@@ -40,9 +40,11 @@ public class Player {
             this.move(0, -SPEED);
         }
         if(Gdx.input.isKeyJustPressed(Keys.Z)) {
-            Bullet bullet = new Bullet();
-            bullet.create(this);
-            bullets.add(bullet);
+            if(isActive) {
+                Bullet bullet = new Bullet();
+                bullet.create(this);
+                bullets.add(bullet);
+            }
         }
 
     }

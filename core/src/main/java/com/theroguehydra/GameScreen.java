@@ -77,6 +77,7 @@ public class GameScreen extends ApplicationAdapter {
         if(player.HP <= 0) {
             drawGameOverScreen(batch);
             player.texture.dispose();
+            player.isActive = false;
         }
     }
 
