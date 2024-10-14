@@ -11,7 +11,7 @@ public class Player {
     int X_POSITION;
     int Y_POSITION;
     int SPEED;
-    int HP = 4;
+    int HP = 1;
     int SCORE = 0;
 
     Texture texture = new Texture("player-basic.png");

@@ -16,6 +16,7 @@ public class GameScreen extends ApplicationAdapter {
     private Viewport gameViewport;
     SpriteBatch batch;
     Texture bgTexture;
+    Texture gameOverText;
 
     Player player;
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
@@ -31,7 +32,7 @@ public class GameScreen extends ApplicationAdapter {
 
         batch = new SpriteBatch();
         bgTexture = new Texture("bg-placeholder.png");
-
+        gameOverText = new Texture("ui/gameover.png");
         player = new Player();
         player.create();
 
@@ -53,6 +54,7 @@ public class GameScreen extends ApplicationAdapter {
             bullet.draw(batch);
         }
         testEnemy.draw(batch);
+        checkGameOver(player, batch);
         batch.end();
 
         // Updating the scene.
@@ -73,12 +75,14 @@ public class GameScreen extends ApplicationAdapter {
 
     public void checkGameOver(Player player, SpriteBatch batch) {
         if(player.HP <= 0) {
-
+            drawGameOverScreen(batch);
+            player.texture.dispose();
         }
     }
 
     public void drawGameOverScreen(SpriteBatch batch) {
         ScreenUtils.clear(Color.BLACK);
+        batch.draw(gameOverText, 0, 0);
     }
 
 }
