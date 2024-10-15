@@ -3,6 +3,7 @@ package com.theroguehydra;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Enemy {
     
@@ -26,6 +27,15 @@ public class Enemy {
     public void draw(SpriteBatch batch) {
         if(isActive) {
             batch.draw(texture, X_POSITION, Y_POSITION);
+        }
+    }
+
+    public void checkBulletCollision(Bullet bullet) {
+        Rectangle enemyRect = enemySprite.getBoundingRectangle();
+        Rectangle bulletRect = enemySprite.getBoundingRectangle();
+        if(enemyRect.overlaps(bulletRect)) {
+            this.isActive = false;
+            bullet.texture.dispose();   
         }
     }
 
