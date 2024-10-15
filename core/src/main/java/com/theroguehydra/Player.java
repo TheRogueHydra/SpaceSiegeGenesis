@@ -18,15 +18,12 @@ public class Player {
     Texture texture = new Texture("player-basic.png");
 
     public void create() {
-
         this.SPEED = 3;
         this.X_POSITION = 304;
         this.Y_POSITION = 8;
-
     }
 
-    public void update(ArrayList<Bullet> bullets) {
-        
+    public void update(ArrayList<Bullet> bullets) {     
         if(Gdx.input.isKeyPressed(Keys.LEFT) && X_POSITION>8) {
             this.move(-SPEED, 0);
         }
@@ -46,7 +43,6 @@ public class Player {
                 bullets.add(bullet);
             }
         }
-
     }
 
     public void draw(SpriteBatch batch) {

@@ -20,7 +20,6 @@ public class GameScreen extends ApplicationAdapter {
 
     Player player;
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-    ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     @Override
     public void create() {
@@ -34,11 +33,6 @@ public class GameScreen extends ApplicationAdapter {
         gameOverText = new Texture("ui/gameover.png");
         player = new Player();
         player.create();
-
-        createEnemy(enemies, 456, 620);
-        createEnemy(enemies, 436, 620);
-        createEnemy(enemies, 420, 620);
-        createEnemy(enemies, 412, 620);
 
     }
 
@@ -54,10 +48,6 @@ public class GameScreen extends ApplicationAdapter {
             Bullet bullet = bullets.get(i);
             bullet.draw(batch);
         }
-        for(int x=0; x<enemies.size(); x++) {
-            Enemy enemy = enemies.get(x);
-            enemy.draw(batch);
-        }
         checkGameOver(player, batch);
         batch.end();
 
@@ -66,12 +56,6 @@ public class GameScreen extends ApplicationAdapter {
         for(int i=0; i<bullets.size(); i++) {
             Bullet bullet = bullets.get(i);
             bullet.update();
-            for(int n=0; n<enemies.size(); n++) {
-                Enemy enemy = enemies.get(n);
-                enemy.update(player);
-                enemy.checkBulletCollisions(bullet, player);
-                enemy.checkPlayerCollisions(player);
-            }
         }
 
     }
@@ -94,11 +78,12 @@ public class GameScreen extends ApplicationAdapter {
         batch.draw(gameOverText, 0, 0);
     }
 
-    public void createEnemy(ArrayList<Enemy> enemies, int xPos, int yPos) {
+    public Enemy createEnemy(ArrayList<Enemy> enemies, int xPos, int yPos) {
         Enemy enemy = new Enemy();
+        enemy.create();
         enemy.X_POSITION = xPos;
         enemy.Y_POSITION = yPos;
-        enemies.add(enemy);
+        return enemy;
     }
 
 }
