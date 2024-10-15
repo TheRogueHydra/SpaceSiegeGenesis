@@ -3,7 +3,10 @@ package com.theroguehydra;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -16,6 +19,7 @@ public class Player {
     boolean isActive = true;
 
     Texture texture = new Texture("player-basic.png");
+    Sprite playerSprite = new Sprite(texture);
 
     public void create() {
         this.SPEED = 3;
@@ -52,6 +56,15 @@ public class Player {
     public void move(int xSpeed, int ySpeed) {
         this.X_POSITION += xSpeed;
         this.Y_POSITION += ySpeed;
+    }
+
+    public void checkEnemyCollision(Enemy enemy) {
+        Rectangle playerRect = playerSprite.getBoundingRectangle();
+        Rectangle enemyRect = enemy.enemySprite.getBoundingRectangle();
+        if(playerRect.overlaps(enemyRect)) {
+            enemy.isActive = false;
+            this.HP -= 1;
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.theroguehydra;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Enemy {
@@ -12,6 +13,7 @@ public class Enemy {
     boolean isActive;
 
     Texture texture = new Texture("alien-basic.png");
+    Sprite enemySprite = new Sprite(texture);
 
     public void create() {
         this.isActive = true;
@@ -26,4 +28,5 @@ public class Enemy {
             batch.draw(texture, X_POSITION, Y_POSITION);
         }
     }
+
 }

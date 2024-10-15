@@ -1,6 +1,7 @@
 package com.theroguehydra;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Bullet {
@@ -10,6 +11,7 @@ public class Bullet {
     int SPEED = 12;
 
     Texture texture = new Texture("bullet-basic.png");
+    Sprite bulletSprite = new Sprite(texture);
 
     public void create(Player player) {
         this.X_POSITION = player.X_POSITION + 4;

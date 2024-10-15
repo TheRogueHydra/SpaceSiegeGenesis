@@ -78,12 +78,4 @@ public class GameScreen extends ApplicationAdapter {
         batch.draw(gameOverText, 0, 0);
     }
 
-    public Enemy createEnemy(ArrayList<Enemy> enemies, int xPos, int yPos) {
-        Enemy enemy = new Enemy();
-        enemy.create();
-        enemy.X_POSITION = xPos;
-        enemy.Y_POSITION = yPos;
-        return enemy;
-    }
-
 }
