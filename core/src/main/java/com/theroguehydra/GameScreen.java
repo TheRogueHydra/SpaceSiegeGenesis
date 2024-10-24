@@ -17,6 +17,7 @@ public class GameScreen extends ApplicationAdapter {
     SpriteBatch batch;
 
     Texture backgroundTexture;
+    Player player;
 
     @Override
     public void create() {
@@ -26,6 +27,8 @@ public class GameScreen extends ApplicationAdapter {
         gameViewport = new FitViewport(640, 480, gameCam);
 
         // Initializing objects.
+        this.player = new Player();
+        player.create();
         this.batch = new SpriteBatch();
         this.backgroundTexture = new Texture(Gdx.files.internal("bg-placeholder.png"));
 
@@ -34,13 +37,14 @@ public class GameScreen extends ApplicationAdapter {
     @Override
     public void render() {
 
-        // Update Logic
+        // Update Logic.
+        player.update();
 
-
-        // Draw Logic
+        // Draw Logic.
         ScreenUtils.clear(Color.BLACK);
         batch.begin();
         batch.draw(backgroundTexture, 0, 0);
+        player.sprite.draw(batch);
         batch.end();
 
     }
