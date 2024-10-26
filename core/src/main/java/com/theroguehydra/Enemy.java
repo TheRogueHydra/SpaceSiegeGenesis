@@ -13,7 +13,7 @@ public class Enemy {
 
     // Data.
     boolean isActive = true;
-    int xSpeed;
+    double xSpeed;
     double ySpeed;
     float xPosition;
     float yPosition;
@@ -24,7 +24,7 @@ public class Enemy {
         this.sprite = new Sprite(texture, 16,16);
 
         this.xSpeed = 1;
-        this.ySpeed = 0.5;
+        this.ySpeed = 0.25;
 
         this.xPosition = xPos;
         this.yPosition = yPos;
@@ -35,7 +35,14 @@ public class Enemy {
 
     public void update(Player player) {
 
+        // Vertical motion.
         this.yPosition -= ySpeed;
+
+        // Horizontal motion.
+        this.xPosition += xSpeed;
+        if(xPosition == 608 || xPosition == 32) {
+            this.xSpeed = -xSpeed;
+        }
 
         // Collision detection.
         if(sprite.getBoundingRectangle().overlaps(player.sprite.getBoundingRectangle())) {
