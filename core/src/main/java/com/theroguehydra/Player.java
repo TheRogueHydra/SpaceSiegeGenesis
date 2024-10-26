@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import java.util.ArrayList;
 
 public class Player {
 
@@ -13,7 +14,8 @@ public class Player {
 
     // Data.
     int hitpoints = 4;
-    int speed = 3;
+    int bulletSpeed;
+    int speed;
     float xPosition;
     float yPosition;
 
@@ -22,12 +24,15 @@ public class Player {
         this.xPosition = 312;
         this.yPosition = 36;
 
+        this.bulletSpeed = 16;
+        this.speed = 3;
+
         texture = new Texture(Gdx.files.internal("player-basic.png"));
         sprite = new Sprite(texture, 16, 16);
 
     }
 
-    public void update() {
+    public void update(ArrayList<Bullet> bullets) {
 
         this.sprite.setPosition(xPosition, yPosition);
 
@@ -43,6 +48,13 @@ public class Player {
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && yPosition >= 16) {
             this.yPosition -= speed;
+        }
+
+        // Bullet addition.
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            Bullet bullet = new Bullet();
+            bullet.create(this);
+            bullets.add(bullet);            
         }
 
     }

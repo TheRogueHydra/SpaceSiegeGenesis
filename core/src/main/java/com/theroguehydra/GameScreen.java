@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import java.util.ArrayList;
 
 public class GameScreen extends ApplicationAdapter {
 
@@ -18,6 +19,8 @@ public class GameScreen extends ApplicationAdapter {
 
     Texture backgroundTexture;
     Player player;
+
+    ArrayList<Bullet> worldBullets = new ArrayList<Bullet>();
 
     @Override
     public void create() {
@@ -38,7 +41,13 @@ public class GameScreen extends ApplicationAdapter {
     public void render() {
 
         // Update Logic.
-        player.update();
+        player.update(worldBullets);
+
+        // Update bullets.
+        for(int i=0; i<worldBullets.size(); i++) {
+            Bullet currentBullet = worldBullets.get(i);
+            currentBullet.update();
+        }
 
         // Draw Logic.
         ScreenUtils.clear(Color.BLACK);
@@ -48,6 +57,12 @@ public class GameScreen extends ApplicationAdapter {
         // Using SpriteBatch.
         batch.draw(backgroundTexture, 0, 0);
         player.sprite.draw(batch);
+
+        // Drawing bullets.
+        for(int i=0; i<worldBullets.size(); i++) {
+            Bullet currentBullet = worldBullets.get(i);
+            currentBullet.sprite.draw(batch);
+        }
 
         batch.end();
 
