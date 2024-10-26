@@ -42,9 +42,13 @@ public class GameScreen extends ApplicationAdapter {
 
         // Draw Logic.
         ScreenUtils.clear(Color.BLACK);
+
         batch.begin();
+
+        // Using SpriteBatch.
         batch.draw(backgroundTexture, 0, 0);
         player.sprite.draw(batch);
+
         batch.end();
 
     }
