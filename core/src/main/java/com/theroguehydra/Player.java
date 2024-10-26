@@ -14,6 +14,7 @@ public class Player {
 
     // Data.
     int hitpoints = 4;
+    int score = 0;
     int bulletSpeed;
     int speed;
     float xPosition;
@@ -24,7 +25,7 @@ public class Player {
         this.xPosition = 312;
         this.yPosition = 36;
 
-        this.bulletSpeed = 16;
+        this.bulletSpeed = 5;
         this.speed = 3;
 
         texture = new Texture(Gdx.files.internal("player-basic.png"));
