@@ -32,11 +32,7 @@ public class Bullet {
         
         this.sprite.setPosition(xPosition, yPosition);
         this.yPosition += this.ySpeed;
-
-        if(xPosition >= 480) {
-            this.isActive = false;
-        }
-
+        
     }
 
 }
