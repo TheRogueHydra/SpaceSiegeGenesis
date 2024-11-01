@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -24,6 +25,9 @@ public class GameScreen extends ApplicationAdapter {
     ArrayList<Enemy> worldEnemies = new ArrayList<Enemy>();
     ArrayList<Shield> worldShields = new ArrayList<Shield>();
 
+    int[] shieldXPositions = new int[] {16, 112, 208, 384, 480, 576};
+
+
     @Override
     public void create() {
 
@@ -38,19 +42,11 @@ public class GameScreen extends ApplicationAdapter {
         this.backgroundTexture = new Texture(Gdx.files.internal("bg-placeholder.png"));
 
         // Creating shields.
-        Shield shield1 = new Shield();
-        Shield shield2 = new Shield();
-        Shield shield3 = new Shield();
-        Shield shield4 = new Shield();
-        Shield shield5 = new Shield();
-        Shield shield6 = new Shield();
-
-        shield1.create(16, 176, worldShields);
-        shield2.create(112, 176, worldShields);
-        shield3.create(208, 176, worldShields);
-        shield4.create(384, 176, worldShields);
-        shield5.create(480, 176, worldShields);
-        shield6.create(576, 176, worldShields);
+        for (int i = 0; i < 6; i++) {
+            Shield shield = new Shield();
+            shield.create(shieldXPositions[i], 176);
+            worldShields.add(shield);
+        }
 
         // Creating enemies.
         Enemy enemy1 = new Enemy();
@@ -77,27 +73,41 @@ public class GameScreen extends ApplicationAdapter {
             Enemy currentEnemy = worldEnemies.get(i);
             currentEnemy.update(player);
 
-            for(int j=0; j<worldBullets.size(); j++) {
+            for(int j=0; j<worldShields.size(); j++) {
 
-                Bullet currentBullet = worldBullets.get(j);
-                currentBullet.update();
+                Shield currentShield = worldShields.get(i);
+                currentShield.update();
 
-                if(currentEnemy.sprite.getBoundingRectangle().overlaps(currentBullet.sprite.getBoundingRectangle()) && currentEnemy.isActive) {
-                    currentBullet.isActive = false;
-                    currentEnemy.isActive = false;
-                    player.score += 1;
-                    System.out.println("Player killed an enemy.");
+                for(int k=0; k<worldBullets.size(); k++) {
+
+                    Bullet currentBullet = worldBullets.get(j);
+                    currentBullet.update();
+
+                    Rectangle shieldBoundRect = currentShield.sprite.getBoundingRectangle();
+                    Rectangle bulletBoundRect = currentBullet.sprite.getBoundingRectangle();
+                    Rectangle enemyBoundRect = currentEnemy.sprite.getBoundingRectangle();
+
+                    // Collision between a bullet and an enemy.
+                    if(enemyBoundRect.overlaps(bulletBoundRect)) {
+                        currentEnemy.isActive = false;
+                        currentBullet.isActive = false;
+                        player.score += 1;
+                        System.out.println("Player killed an enemy.");
+                    }
+
+                    // Collision between a bullet and a shield.
+                    if(shieldBoundRect.overlaps(bulletBoundRect)) {
+                        currentBullet.isActive = false;
+                    }
+
+                    // Collision between an enemy and a shield.
+                    if(shieldBoundRect.overlaps(enemyBoundRect)) {
+                        currentEnemy.isActive = false;
+                    }
+
                 }
 
             }
-
-        }
-
-        // Update shields.
-        for(int i=0; i<worldShields.size(); i++) {
-
-            Shield currentShield = worldShields.get(i);
-            currentShield.update();
 
         }
 
@@ -109,6 +119,14 @@ public class GameScreen extends ApplicationAdapter {
         // Using SpriteBatch.
         batch.draw(backgroundTexture, 0, 0);
         player.sprite.draw(batch);
+
+        // Drawing shields.
+        for(int i=0; i<worldShields.size(); i++) {
+            Shield currentShield = worldShields.get(i);
+            if(currentShield.isActive) {
+                currentShield.sprite.draw(batch);
+            }
+        }
 
         // Drawing bullets.
         for(int i=0; i<worldBullets.size(); i++) {
@@ -123,14 +141,6 @@ public class GameScreen extends ApplicationAdapter {
             Enemy currentEnemy = worldEnemies.get(i);
             if(currentEnemy.isActive) {
                 currentEnemy.sprite.draw(batch);
-            }
-        }
-
-        // Drawing shields.
-        for(int i=0; i<worldShields.size(); i++) {
-            Shield currentShield = worldShields.get(i);
-            if(currentShield.isActive) {
-                currentShield.sprite.draw(batch);
             }
         }
 

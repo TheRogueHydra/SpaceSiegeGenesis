@@ -3,7 +3,6 @@ package com.theroguehydra;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import java.util.ArrayList;
 
 public class Shield {
 
@@ -17,7 +16,7 @@ public class Shield {
     float xPosition;
     float yPosition;
 
-    public void create(float xPos, float yPos, ArrayList<Shield> shields) {
+    public Shield create(float xPos, float yPos) {
 
         this.xPosition = xPos;
         this.yPosition = yPos;
@@ -26,8 +25,7 @@ public class Shield {
         this.sprite = new Sprite(texture, 48, 32);
         this.sprite.setPosition(xPosition, yPosition);
 
-        shields.add(this);
-
+        return this;
     }
 
     public void update() {
